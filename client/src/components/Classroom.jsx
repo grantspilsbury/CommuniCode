@@ -7,7 +7,8 @@ import SimpleWebRTC from 'simplewebrtc';
 class Classroom extends React.Component {
   constructor(props) {
     super(props);
-    this.socket = io.connect('localhost:3000');
+    // this.socket = io.connect('localhost:3000');
+    this.socket = io.connect('https://commcode.herokuapp.com');
     this.startVideo = this.startVideo.bind(this);
     this.webrtc = new SimpleWebRTC({
       localVideoEl: 'localVideo',
