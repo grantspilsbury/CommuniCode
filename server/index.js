@@ -11,10 +11,6 @@ server.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
 
-app.get('*', (req, res) => {
-  res.sendFile('index.html', { root: path.join(__dirname, '../client/dist') });
-});
-
 io.on('connection', (socket) => {
   console.log('New user connected');
 
