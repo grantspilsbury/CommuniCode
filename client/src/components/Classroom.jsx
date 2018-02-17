@@ -8,26 +8,27 @@ class Classroom extends React.Component {
   constructor(props) {
     super(props);
     this.socket = io.connect('localhost:3000');
+    this.startVideo = this.startVideo.bind(this);
     this.webrtc = new SimpleWebRTC({
-      localVideoEL: 'localVideo',
-      remoteVideosEL: 'remoteVideos',
-      autoRequestMedia: true
+      localVideoEl: 'localVideo',
+      remoteVideosEl: 'remoteVideos',
+      autoRequestMedia: true,
     });
+    this.state = {
+      channelId: '12345'
+    }
   }
 
   componentDidMount() {
-    const channelId = '12345';
     const context = this;
-
     this.socket.on('connect', () => {
       console.log('Connecting');
-      context.socket.emit('client:joinChannel', channelId, (err) => {
+      context.socket.emit('client:joinChannel', context.state.channelId, (err) => {
+        console.log('Trying to join channel');
         if (!err) {
           console.log('Joined channel');
-          context.webrtc.on('readyToCall', () => {
-            context.webrtc.joinRoom(channelId);
-          });
         } else {
+          console.log('Error in trying to join a channel', err);
           context.socket.disconnect();
         }
       });
@@ -38,12 +39,20 @@ class Classroom extends React.Component {
     });
   }
 
+  startVideo() {
+    var context = this;
+    this.webrtc.on('readyToCall', function () {
+      context.webrtc.joinRoom(context.state.channelId);
+      console.log('Started video');
+    });
+  }
+
   render() {
+    this.startVideo();
     return (
       <Grid celled padded style={{height: '100vh'}}>
         <Grid.Column width={8}>
           <Grid.Row style={{height: '33%'}}>
-            <p>Video</p>
             <div>
               <video id='localVideo'></video>
             </div>
