@@ -1,0 +1,19 @@
+{
+  "name": "communicode",
+  "version": "1.0.0",
+  "description": "Code school for the hearing impaired",
+  "main": "server/index.js",
+  "scripts": {
+    "test": "jest",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grantspilsbury/CommuniCode.git"
+  },
+  "author": "Grant Spilsbury",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/grantspilsbury/CommuniCode/issues"
+  },
+  "homepage": "https://github.com/grantspilsbury/CommuniCode#readme"
+}
